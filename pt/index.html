@@ -212,6 +212,19 @@
   .lb .next{right:18px;top:50%;transform:translateY(-50%)}
   .lb .count{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-size:.9rem;opacity:.8}
   .hero .hero-inner > .btn{margin-top:30px}
+  .wa-fab{position:fixed;right:22px;bottom:22px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px -10px rgba(0,0,0,.45);text-decoration:none;transition:transform .2s}
+  .wa-fab:hover{transform:scale(1.07)}
+  .wa-fab svg{width:30px;height:30px}
+  .mbar{display:none}
+  @media (max-width:860px){
+    .wa-fab{display:none}
+    .mbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:10px;padding:8px;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-radius:999px;box-shadow:0 14px 34px -14px rgba(30,20,51,.5);transform:translateY(150%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+    .mbar.on{transform:none}
+    .mbar a{display:flex;align-items:center;justify-content:center;text-decoration:none;border-radius:999px;font-weight:600;font-size:.95rem}
+    .mbar .p{flex:1;padding:12px;background:var(--violet);color:#fff}
+    .mbar .w{width:50px;height:50px;background:#25D366;color:#fff;flex:none}
+    .mbar .w svg{width:26px;height:26px}
+  }
   .hero .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:34px}
   .chip{background:rgba(255,255,255,.7);backdrop-filter:blur(6px);padding:8px 16px;border-radius:999px;font-size:.86rem;font-weight:500}
 
@@ -585,6 +598,17 @@
   }
   buildQuote();
 
+  // Mobile quick-booking bar: appears after the hero, hides when the booking section is on screen
+  document.addEventListener('DOMContentLoaded', () => {
+    const bar = document.getElementById('mbar');
+    const hero = document.querySelector('.hero'), book = document.getElementById('book');
+    if (!bar || !hero || !book) return;
+    let inHero = true, inBook = false;
+    const upd = () => bar.classList.toggle('on', !inHero && !inBook);
+    new IntersectionObserver(([e]) => { inHero = e.isIntersecting; upd(); }).observe(hero);
+    new IntersectionObserver(([e]) => { inBook = e.isIntersecting; upd(); }).observe(book);
+  });
+
   // Photo strip: auto-advance, drag or swipe to move, and a lightbox to view photos one by one
   document.addEventListener('DOMContentLoaded', () => {
     const strip = document.querySelector('.strip');
@@ -691,5 +715,7 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden><button type="button" class="x" aria-label="Close">×</button><button type="button" class="prev" aria-label="Previous photo">‹</button><img alt=""><button type="button" class="next" aria-label="Next photo">›</button><div class="count"></div></div>
+<a class="wa-fab" href="https://wa.me/541168740876?text=Oi%21%20Quero%20consultar%20disponibilidade%20para%20um%20tour%20da%20BA%20on%20my%20way." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.2 5.2 0 0 0 3.1.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c0-.1-.2-.2-.4-.3z"/></svg></a>
+<nav class="mbar" id="mbar" aria-label="Quick booking"><a class="p" href="#book" data-i18n="mbar_check">Ver disponibilidade</a><a class="w" href="https://wa.me/541168740876?text=Oi%21%20Quero%20consultar%20disponibilidade%20para%20um%20tour%20da%20BA%20on%20my%20way." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.2 5.2 0 0 0 3.1.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c0-.1-.2-.2-.4-.3z"/></svg></a></nav>
 </body>
 </html>
