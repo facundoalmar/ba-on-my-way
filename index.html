@@ -424,7 +424,7 @@
   </div>
 </section>
 
-<!-- INSTAGRAM STRIP (fills only when the feed endpoint returns posts) -->
+<!-- INSTAGRAM STRIP (static: fill the 6 links/images with the latest posts, then remove hidden) -->
 <section class="band" id="ig" aria-labelledby="ig-h" hidden>
   <div class="wrap">
     <div class="section-head reveal">
@@ -697,22 +697,6 @@
   try { saved = localStorage.getItem('bom-lang') || 'en'; } catch(e){}
   setLang(saved);
 
-  // Instagram strip: fills from /api/instagram when configured; stays hidden otherwise
-  fetch('/api/instagram').then(r => r.ok ? r.json() : null).then(d => {
-    const items = (d && d.data || []).filter(i => i.media_type !== 'VIDEO' || i.thumbnail_url).slice(0, 6);
-    if (!items.length) return;
-    const strip = document.getElementById('ig-strip');
-    items.forEach(i => {
-      const a = document.createElement('a');
-      a.href = i.permalink; a.target = '_blank'; a.rel = 'noopener';
-      const img = document.createElement('img');
-      img.src = i.media_type === 'VIDEO' ? i.thumbnail_url : i.media_url;
-      img.alt = (i.caption || 'Post from @baonmyway').split('\n')[0].slice(0, 120);
-      img.loading = 'lazy';
-      a.appendChild(img); strip.appendChild(a);
-    });
-    document.getElementById('ig').hidden = false;
-  }).catch(() => {});
 
 
   // Nav background on scroll, without a scroll listener: a sentinel observed by IntersectionObserver
