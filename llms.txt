@@ -16,4 +16,6 @@
 - Viator: https://www.viator.com/tours/Buenos-Aires/Cocktail-tour-in-Buenos-Aires/d901-106749P2
 
 ## Site
-- Home: https://ba-on-my-way.vercel.app/
+- Home (English): https://ba-on-my-way.vercel.app/
+- Español: https://ba-on-my-way.vercel.app/es/
+- Português: https://ba-on-my-way.vercel.app/pt/
