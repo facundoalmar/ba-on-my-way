@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ba-on-my-way.vercel.app/sitemap.xml

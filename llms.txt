@@ -1,0 +1,19 @@
+# BA on my way
+
+> BA on my way is a social bar tour (pub crawl) in Buenos Aires, Argentina. Three bars, about 3.5 hours, one host with you all night, run by Florencia Migliorisi. Guests are mainly international travelers, and locals are welcome.
+
+## Key facts
+- Location: Palermo, Palermo Soho, Chacarita and Villa Crespo (Buenos Aires)
+- Duration: about 3.5 hours
+- Schedule: every night, all year round
+- Format: three bars, drinks and shots included as part of the experience
+- Photos: analog film during the night, digital folder sent afterwards
+- Founder: Florencia Migliorisi
+
+## How to book
+- WhatsApp (fastest way to check availability): https://wa.me/541168740876
+- Airbnb Experiences: https://www.airbnb.com.ar/experiences/339789
+- Viator: https://www.viator.com/tours/Buenos-Aires/Cocktail-tour-in-Buenos-Aires/d901-106749P2
+
+## Site
+- Home: https://ba-on-my-way.vercel.app/
