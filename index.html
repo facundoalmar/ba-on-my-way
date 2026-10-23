@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BA on my way | Buenos Aires Bar Tour &amp; Nightlife Experience</title>
 <meta name="description" content="A fancy, social pub crawl through Palermo, Palermo Soho, Chacarita and Villa Crespo. Three bars, three and a half hours, one unforgettable porteño night. Book on WhatsApp, Airbnb or Viator.">
-<link rel="canonical" href="https://www.baonmyway.com/">
+<link rel="canonical" href="https://ba-on-my-way.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="BA on my way | Buenos Aires Bar Tour">
 <meta property="og:description" content="Three bars. Three and a half hours. One unforgettable night in Buenos Aires.">
@@ -92,6 +92,8 @@
     "name": "BA on my way",
     "founder": { "@type": "Person", "name": "Florencia Migliorisi" },
     "foundingDate": "2018",
+    "url": "https://ba-on-my-way.vercel.app/",
+    "sameAs": ["https://www.instagram.com/baonmyway/"],
     "areaServed": "Buenos Aires, Argentina"
   },
   "itinerary": {
@@ -221,6 +223,12 @@
   .gallery figure:nth-child(1),.gallery figure:nth-child(6){grid-column:span 2;grid-row:span 2}
   .gallery img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
   .gallery figure:hover img{transform:scale(1.05)}
+  .ig-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .ig-strip a{position:relative;display:block;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#E7D7FF,#CDEFFF)}
+  .ig-strip img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .ig-strip a:hover img{transform:scale(1.05)}
+  .ig-follow{display:inline-block;margin-top:18px;font-weight:600;color:var(--violet)}
+  @media (max-width:860px){.ig-strip{grid-template-columns:repeat(3,1fr)}}
   .gallery figcaption{position:absolute;left:14px;bottom:12px;font-size:.78rem;color:#fff;background:rgba(30,20,51,.5);padding:4px 10px;border-radius:999px}
   @media (max-width:860px){.gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}.gallery figure:nth-child(1),.gallery figure:nth-child(6){grid-column:span 2;grid-row:span 1}}
 
@@ -416,6 +424,18 @@
   </div>
 </section>
 
+<!-- INSTAGRAM STRIP (fills only when the feed endpoint returns posts) -->
+<section class="band" id="ig" aria-labelledby="ig-h" hidden>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow" data-i18n="ig_eyebrow">@baonmyway</p>
+      <h2 id="ig-h" data-i18n="ig_h2">Latest from Instagram.</h2>
+    </div>
+    <div class="ig-strip" id="ig-strip"></div>
+    <a class="ig-follow" href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" data-i18n="ig_follow">Follow @baonmyway →</a>
+  </div>
+</section>
+
 <!-- WHY -->
 <section id="why">
   <div class="wrap">
@@ -508,6 +528,7 @@
     en: {
       nav_what:"What", nav_stops:"Stops", nav_why:"Why us", nav_faq:"FAQ", nav_book:"Book now",
       hero_eyebrow:"Buenos Aires · Bar tour · Since 2018", hero_h1a:"The porteño night,", hero_h1b:"done right.",
+      ig_eyebrow:"@baonmyway", ig_h2:"Latest from Instagram.", ig_follow:"Follow @baonmyway →",
       hero_lead:"A fancy, social pub crawl through three of Buenos Aires' coolest bars. Argentine aperitivos, shots, music and a crew that knows exactly where the night is happening.",
       hero_cta:"Check availability →", chip1:"3 bars", chip2:"3.5 hours", chip3:"Every night, all year", chip4:"6,000+ travelers",
       what_eyebrow:"01 · What is it?", what_h2:"A fancy pub crawl, carefully curated.",
@@ -552,6 +573,7 @@
     es: {
       nav_what:"Qué es", nav_stops:"Recorrido", nav_why:"Por qué nosotros", nav_faq:"Preguntas", nav_book:"Reservar",
       hero_eyebrow:"Buenos Aires · Tour de bares · Desde 2018", hero_h1a:"La noche porteña,", hero_h1b:"como se debe.",
+      ig_eyebrow:"@baonmyway", ig_h2:"Lo último en Instagram.", ig_follow:"Seguí @baonmyway →",
       hero_lead:"Un pub crawl con onda por tres de los bares más cool de Buenos Aires. Aperitivos argentinos, shots, música y un equipo que sabe exactamente dónde está pasando la noche.",
       hero_cta:"Consultar disponibilidad →", chip1:"3 bares", chip2:"3,5 horas", chip3:"Todas las noches, todo el año", chip4:"+6.000 viajeros",
       what_eyebrow:"01 · ¿Qué es?", what_h2:"Un pub crawl con onda, cuidadosamente curado.",
@@ -596,6 +618,7 @@
     pt: {
       nav_what:"O tour", nav_stops:"Roteiro", nav_why:"Por que nós", nav_faq:"Dúvidas", nav_book:"Reservar",
       hero_eyebrow:"Buenos Aires · Tour de bares · Desde 2018", hero_h1a:"A noite portenha,", hero_h1b:"do jeito certo.",
+      ig_eyebrow:"@baonmyway", ig_h2:"Últimas do Instagram.", ig_follow:"Siga @baonmyway →",
       hero_lead:"Um pub crawl sofisticado e animado por três dos bares mais legais de Buenos Aires. Aperitivos argentinos, shots, música e uma equipe que sabe exatamente onde a noite está acontecendo.",
       hero_cta:"Ver disponibilidade →", chip1:"3 bares", chip2:"3,5 horas", chip3:"Todas as noites, o ano todo", chip4:"+6.000 viajantes",
       what_eyebrow:"01 · O que é?", what_h2:"Um pub crawl sofisticado, com curadoria cuidadosa.",
@@ -673,6 +696,24 @@
   let saved = 'en';
   try { saved = localStorage.getItem('bom-lang') || 'en'; } catch(e){}
   setLang(saved);
+
+  // Instagram strip: fills from /api/instagram when configured; stays hidden otherwise
+  fetch('/api/instagram').then(r => r.ok ? r.json() : null).then(d => {
+    const items = (d && d.data || []).filter(i => i.media_type !== 'VIDEO' || i.thumbnail_url).slice(0, 6);
+    if (!items.length) return;
+    const strip = document.getElementById('ig-strip');
+    items.forEach(i => {
+      const a = document.createElement('a');
+      a.href = i.permalink; a.target = '_blank'; a.rel = 'noopener';
+      const img = document.createElement('img');
+      img.src = i.media_type === 'VIDEO' ? i.thumbnail_url : i.media_url;
+      img.alt = (i.caption || 'Post from @baonmyway').split('\n')[0].slice(0, 120);
+      img.loading = 'lazy';
+      a.appendChild(img); strip.appendChild(a);
+    });
+    document.getElementById('ig').hidden = false;
+  }).catch(() => {});
+
 
   // Nav background on scroll, without a scroll listener: a sentinel observed by IntersectionObserver
   const nav = document.getElementById('nav');
