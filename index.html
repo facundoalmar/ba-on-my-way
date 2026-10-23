@@ -179,6 +179,21 @@
   @media (min-width:860px){.hero h1{max-width:none;white-space:nowrap}}
   .hero h1 em{font-style:italic;color:var(--violet)}
   .hero p.lead{margin:20px auto 34px;max-width:54ch;font-size:clamp(1.02rem,2vw,1.18rem);color:var(--ink);opacity:.85}
+  .hero-slides{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:heroFade 16s infinite}
+  .hero-slides img:nth-child(2){animation-delay:4s}
+  .hero-slides img:nth-child(3){animation-delay:8s}
+  .hero-slides img:nth-child(4){animation-delay:12s}
+  .hero-slides::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(251,249,255,.82) 0%,rgba(251,249,255,.55) 60%,rgba(251,249,255,.3) 100%)}
+  @keyframes heroFade{0%{opacity:0}6%{opacity:.6}25%{opacity:.6}31%,100%{opacity:0}}
+  .strip{overflow:hidden;padding:6px 0 10px;position:relative;z-index:1}
+  .strip-track{display:flex;width:max-content;animation:stripMove 60s linear infinite}
+  .strip:hover .strip-track{animation-play-state:paused}
+  .strip-set{display:flex;gap:14px;padding-right:14px;flex:none}
+  .strip-set img{height:220px;width:auto;flex:none;border-radius:18px;box-shadow:0 14px 30px -18px rgba(30,20,51,.5)}
+  @keyframes stripMove{to{transform:translateX(-50%)}}
+  @media (max-width:860px){.strip-set img{height:160px}}
+  @media (prefers-reduced-motion:reduce){.strip-track,.hero-slides img{animation:none}.hero-slides img:first-child{opacity:.6}}
   .hero .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:34px}
   .chip{background:rgba(255,255,255,.7);backdrop-filter:blur(6px);padding:8px 16px;border-radius:999px;font-size:.86rem;font-weight:500}
 
@@ -315,6 +330,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-slides" aria-hidden="true"><img src="assets/photos/01.jpg" alt=""><img src="assets/photos/03.jpg" alt=""><img src="assets/photos/05.jpg" alt=""><img src="assets/photos/07.jpg" alt=""></div>
   <div class="wrap hero-inner">
     <img class="hero-logo" src="assets/logo-vertical.webp" alt="BA on my way logo" width="684" height="624">
     <p class="eyebrow" data-i18n="hero_eyebrow">Buenos Aires · Bar tour · Since 2018</p>
@@ -331,6 +347,8 @@
 </section>
 
 <!-- WHAT -->
+<!-- PHOTO STRIP -->
+<div class="strip" aria-hidden="true"><div class="strip-track"><div class="strip-set"><img src="assets/photos/01.jpg" alt="" loading="lazy"><img src="assets/photos/02.jpg" alt="" loading="lazy"><img src="assets/photos/03.jpg" alt="" loading="lazy"><img src="assets/photos/04.jpg" alt="" loading="lazy"><img src="assets/photos/05.jpg" alt="" loading="lazy"><img src="assets/photos/06.jpg" alt="" loading="lazy"><img src="assets/photos/07.jpg" alt="" loading="lazy"><img src="assets/photos/08.jpg" alt="" loading="lazy"></div><div class="strip-set"><img src="assets/photos/01.jpg" alt="" loading="lazy"><img src="assets/photos/02.jpg" alt="" loading="lazy"><img src="assets/photos/03.jpg" alt="" loading="lazy"><img src="assets/photos/04.jpg" alt="" loading="lazy"><img src="assets/photos/05.jpg" alt="" loading="lazy"><img src="assets/photos/06.jpg" alt="" loading="lazy"><img src="assets/photos/07.jpg" alt="" loading="lazy"><img src="assets/photos/08.jpg" alt="" loading="lazy"></div></div></div>
 <section id="what">
   <div class="wrap split">
     <div class="reveal">
