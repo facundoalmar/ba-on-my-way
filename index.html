@@ -77,6 +77,8 @@
   /* NAV */
   header.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,backdrop-filter .3s}
   header.nav.scrolled{background:rgba(251,249,255,.86);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(30,20,51,.06)}
+  header.nav .brand{transition:opacity .3s}
+  header.nav:not(.scrolled) .brand{opacity:0;pointer-events:none}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
   .brand{font-family:var(--display);font-weight:800;font-size:1.35rem;text-decoration:none;color:var(--violet)}
   .nav-links{display:flex;gap:26px;align-items:center;font-size:.92rem}
