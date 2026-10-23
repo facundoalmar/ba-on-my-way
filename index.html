@@ -186,14 +186,25 @@
   .hero-slides img:nth-child(4){animation-delay:12s}
   .hero-slides::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(251,249,255,.82) 0%,rgba(251,249,255,.55) 60%,rgba(251,249,255,.3) 100%)}
   @keyframes heroFade{0%{opacity:0}6%{opacity:.6}25%{opacity:.6}31%,100%{opacity:0}}
-  .strip{overflow:hidden;padding:6px 0 10px;position:relative;z-index:1}
-  .strip-track{display:flex;width:max-content;animation:stripMove 60s linear infinite}
-  .strip:hover .strip-track{animation-play-state:paused}
+  .strip{overflow-x:auto;overflow-y:hidden;position:relative;z-index:1;padding:6px 0 10px;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
+  .strip::-webkit-scrollbar{display:none}
+  .strip.dragging{cursor:grabbing;user-select:none}
+  .strip-track{display:flex;width:max-content}
   .strip-set{display:flex;gap:14px;padding-right:14px;flex:none}
-  .strip-set img{height:220px;width:auto;flex:none;border-radius:18px;box-shadow:0 14px 30px -18px rgba(30,20,51,.5)}
-  @keyframes stripMove{to{transform:translateX(-50%)}}
+  .strip-set button{all:unset;display:block;flex:none;cursor:zoom-in;border-radius:18px;overflow:hidden;box-shadow:0 14px 30px -18px rgba(30,20,51,.5)}
+  .strip-set button:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+  .strip-set img{display:block;height:220px;width:auto;pointer-events:none}
   @media (max-width:860px){.strip-set img{height:160px}}
-  @media (prefers-reduced-motion:reduce){.strip-track,.hero-slides img{animation:none}.hero-slides img:first-child{opacity:.6}}
+  @media (prefers-reduced-motion:reduce){.hero-slides img{animation:none}.hero-slides img:first-child{opacity:.6}}
+  .lb{position:fixed;inset:0;z-index:100;background:rgba(20,12,34,.92);display:flex;align-items:center;justify-content:center;padding:24px}
+  .lb[hidden]{display:none}
+  .lb img{max-width:min(1100px,92vw);max-height:84vh;border-radius:14px;object-fit:contain}
+  .lb button{position:absolute;background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:999px;width:48px;height:48px;font-size:1.4rem;cursor:pointer}
+  .lb button:hover{background:rgba(255,255,255,.28)}
+  .lb .x{top:18px;right:18px}
+  .lb .prev{left:18px;top:50%;transform:translateY(-50%)}
+  .lb .next{right:18px;top:50%;transform:translateY(-50%)}
+  .lb .count{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-size:.9rem;opacity:.8}
   .hero .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:34px}
   .chip{background:rgba(255,255,255,.7);backdrop-filter:blur(6px);padding:8px 16px;border-radius:999px;font-size:.86rem;font-weight:500}
 
@@ -347,8 +358,8 @@
 </section>
 
 <!-- WHAT -->
-<!-- PHOTO STRIP -->
-<div class="strip" aria-hidden="true"><div class="strip-track"><div class="strip-set"><img src="assets/photos/01.jpg" alt="" loading="lazy"><img src="assets/photos/02.jpg" alt="" loading="lazy"><img src="assets/photos/03.jpg" alt="" loading="lazy"><img src="assets/photos/04.jpg" alt="" loading="lazy"><img src="assets/photos/05.jpg" alt="" loading="lazy"><img src="assets/photos/06.jpg" alt="" loading="lazy"><img src="assets/photos/07.jpg" alt="" loading="lazy"><img src="assets/photos/08.jpg" alt="" loading="lazy"></div><div class="strip-set"><img src="assets/photos/01.jpg" alt="" loading="lazy"><img src="assets/photos/02.jpg" alt="" loading="lazy"><img src="assets/photos/03.jpg" alt="" loading="lazy"><img src="assets/photos/04.jpg" alt="" loading="lazy"><img src="assets/photos/05.jpg" alt="" loading="lazy"><img src="assets/photos/06.jpg" alt="" loading="lazy"><img src="assets/photos/07.jpg" alt="" loading="lazy"><img src="assets/photos/08.jpg" alt="" loading="lazy"></div></div></div>
+<!-- PHOTO STRIP: scrollable (drag, swipe or auto-advance); click a photo to open it -->
+<div class="strip" aria-label="Photos from the tour"><div class="strip-track"><div class="strip-set"><button type="button" data-idx="0"><img src="assets/photos/01.jpg" alt="Group of travelers toasting with cocktails during a Buenos Aires bar tour"></button><button type="button" data-idx="1"><img src="assets/photos/02.jpg" alt="Friends clinking shot glasses at a bar in Buenos Aires"></button><button type="button" data-idx="2"><img src="assets/photos/03.jpg" alt="Night crowd dancing in a Palermo Soho bar"></button><button type="button" data-idx="3"><img src="assets/photos/04.jpg" alt="Bottles and drinks on a bar counter in Buenos Aires"></button><button type="button" data-idx="4"><img src="assets/photos/05.jpg" alt="Travelers laughing together on a Buenos Aires night out"></button><button type="button" data-idx="5"><img src="assets/photos/06.jpg" alt="Group photo on film at a Chacarita bar"></button><button type="button" data-idx="6"><img src="assets/photos/07.jpg" alt="Champagne toast with new friends in Villa Crespo"></button><button type="button" data-idx="7"><img src="assets/photos/08.jpg" alt="Celebration with friends at a porteño bar"></button></div><div class="strip-set"><button type="button" data-idx="0" aria-hidden="true" tabindex="-1"><img src="assets/photos/01.jpg"></button><button type="button" data-idx="1" aria-hidden="true" tabindex="-1"><img src="assets/photos/02.jpg"></button><button type="button" data-idx="2" aria-hidden="true" tabindex="-1"><img src="assets/photos/03.jpg"></button><button type="button" data-idx="3" aria-hidden="true" tabindex="-1"><img src="assets/photos/04.jpg"></button><button type="button" data-idx="4" aria-hidden="true" tabindex="-1"><img src="assets/photos/05.jpg"></button><button type="button" data-idx="5" aria-hidden="true" tabindex="-1"><img src="assets/photos/06.jpg"></button><button type="button" data-idx="6" aria-hidden="true" tabindex="-1"><img src="assets/photos/07.jpg"></button><button type="button" data-idx="7" aria-hidden="true" tabindex="-1"><img src="assets/photos/08.jpg"></button></div></div></div>
 <section id="what">
   <div class="wrap split">
     <div class="reveal">
@@ -722,6 +733,94 @@
   try { saved = localStorage.getItem('bom-lang') || 'en'; } catch(e){}
   setLang(saved);
 
+  // Photo strip: auto-advance, drag or swipe to move, and a lightbox to view photos one by one
+  document.addEventListener('DOMContentLoaded', () => {
+    const strip = document.querySelector('.strip');
+    const lb = document.getElementById('lb');
+    if (!strip || !lb) return;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const track = strip.querySelector('.strip-track');
+    let hovering = false, pointerDown = false, moved = false, dragging = false;
+    let startX = 0, startLeft = 0, resumeAt = 0, acc = 0;
+    const half = () => track.scrollWidth / 2;
+    const wrap = () => {
+      const h = half();
+      if (h <= 0) return;
+      if (strip.scrollLeft >= h) strip.scrollLeft -= h;
+      else if (strip.scrollLeft <= 0) strip.scrollLeft += h;
+    };
+    const pauseFor = ms => { resumeAt = performance.now() + ms; };
+    const tick = () => {
+      const free = !reduce && !hovering && !pointerDown && lb.hidden && performance.now() > resumeAt;
+      if (free) {
+        acc += 0.5;
+        if (acc >= 1) { const step = Math.floor(acc); strip.scrollLeft += step; acc -= step; }
+      }
+      wrap();
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+
+    strip.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
+    strip.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hovering = false; pointerDown = false; dragging = false; strip.classList.remove('dragging'); } });
+    strip.addEventListener('wheel', () => pauseFor(2500), { passive: true });
+    strip.addEventListener('pointerdown', e => {
+      pointerDown = true; moved = false; startX = e.clientX; startLeft = strip.scrollLeft;
+      if (e.pointerType === 'mouse') { dragging = true; strip.classList.add('dragging'); }
+    });
+    window.addEventListener('pointermove', e => {
+      if (!dragging || !pointerDown) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 5) moved = true;
+      if (moved) strip.scrollLeft = startLeft - dx;
+    });
+    const endDrag = () => {
+      if (!pointerDown) return;
+      pointerDown = false; dragging = false; strip.classList.remove('dragging');
+      pauseFor(2500);
+    };
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+    // a drag must not open the viewer
+    strip.addEventListener('click', e => {
+      if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
+    }, true);
+
+    // lightbox
+    const items = [...strip.querySelectorAll('.strip-set:first-child button img')].map(i => i.src);
+    const lbImg = lb.querySelector('img'), count = lb.querySelector('.count');
+    let cur = 0;
+    const show = i => {
+      cur = (i + items.length) % items.length;
+      lbImg.src = items[cur];
+      lbImg.alt = strip.querySelectorAll('.strip-set:first-child button img')[cur].alt;
+      count.textContent = (cur + 1) + ' / ' + items.length;
+    };
+    const openLb = i => { show(i); lb.hidden = false; document.body.style.overflow = 'hidden'; lb.querySelector('.x').focus(); };
+    const closeLb = () => { lb.hidden = true; document.body.style.overflow = ''; };
+    strip.addEventListener('click', e => {
+      const b = e.target.closest('button[data-idx]');
+      if (b) openLb(+b.dataset.idx);
+    });
+    lb.querySelector('.x').addEventListener('click', closeLb);
+    lb.querySelector('.prev').addEventListener('click', () => show(cur - 1));
+    lb.querySelector('.next').addEventListener('click', () => show(cur + 1));
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') show(cur - 1);
+      if (e.key === 'ArrowRight') show(cur + 1);
+    });
+    let tx = null;
+    lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', e => {
+      if (tx === null) return;
+      const dx = e.changedTouches[0].clientX - tx; tx = null;
+      if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+    });
+  });
+
 
 
   // Nav background on scroll, without a scroll listener: a sentinel observed by IntersectionObserver
@@ -739,5 +838,6 @@
 
   document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden><button type="button" class="x" aria-label="Close">×</button><button type="button" class="prev" aria-label="Previous photo">‹</button><img alt=""><button type="button" class="next" aria-label="Next photo">›</button><div class="count"></div></div>
 </body>
 </html>
