@@ -163,7 +163,7 @@
   .lang{display:flex;gap:4px;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
   .lang a{text-decoration:none;display:inline-block;font-size:.78rem;font-weight:600;padding:6px 10px;border-radius:999px;color:var(--muted)}
   .lang a[aria-current="page"]{background:var(--violet);color:#fff}
-  @media (max-width:860px){.nav-links a:not(.btn-nav){display:none}}
+  @media (max-width:860px){.nav-links > a:not(.btn-nav){display:none}}
 
   /* BUTTONS */
   .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font:inherit;transition:transform .2s,box-shadow .2s}
@@ -175,6 +175,15 @@
   @media (prefers-reduced-motion:reduce){.btn-nav::after{animation:none;display:none}}
   .btn-ghost{background:#fff;color:var(--violet);box-shadow:0 2px 12px rgba(0,0,0,.06)}
   .btn-nav{padding:10px 18px;font-size:.88rem}
+  .burger{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;border:0;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08);cursor:pointer;flex:none}
+  .burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;margin:2px 0;transition:transform .25s,opacity .2s}
+  .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .mnav{position:absolute;top:calc(100% + 8px);right:16px;min-width:220px;background:#fff;border-radius:18px;box-shadow:0 20px 40px -18px rgba(30,20,51,.35);padding:10px;display:flex;flex-direction:column;z-index:70}
+  .mnav[hidden]{display:none}
+  .mnav a{padding:12px 14px;border-radius:12px;text-decoration:none;color:var(--ink);font-weight:500}
+  .mnav a:hover{background:#F3ECFF;color:var(--violet)}
 
   /* HERO */
   .hero{min-height:100vh;min-height:100svh;display:grid;place-items:center;position:relative;overflow:hidden;
@@ -338,6 +347,14 @@
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+  @media (max-width:860px){
+    .nav-links{gap:8px}
+    .brand img{height:30px !important}
+    .btn-nav{white-space:nowrap;padding:9px 12px;font-size:.84rem}
+    .lang{padding:3px;flex:none}
+    .btn-nav{flex:none}
+    .lang a{padding:5px 7px;font-size:.72rem}
+  }
 </style>
 </head>
 <body>
@@ -352,12 +369,19 @@
       <a href="#why" data-i18n="nav_why">Por que nós</a>
       <a href="#faq" data-i18n="nav_faq">Dúvidas</a>
       <a href="#book" class="btn btn-primary btn-nav" data-i18n="nav_book">Reservar</a>
+        <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
       <div class="lang" role="group" aria-label="Language">
         <a href="/" hreflang="en" lang="en">EN</a>
         <a href="/es/" hreflang="es" lang="es">ES</a>
         <a href="/pt/" hreflang="pt" lang="pt" aria-current="page">PT</a>
       </div>
     </nav>
+    <div class="mnav" id="mnav" hidden>
+      <a href="#what" data-i18n="nav_what">O tour</a>
+      <a href="#stops" data-i18n="nav_stops">Roteiro</a>
+      <a href="#why" data-i18n="nav_why">Por que nós</a>
+      <a href="#faq" data-i18n="nav_faq">Dúvidas</a>
+    </div>
   </div>
 </header>
 
@@ -601,6 +625,17 @@
     words.forEach(w => quoteIO.observe(w));
   }
   buildQuote();
+
+  // Header menu button: opens the list of sections; closes on link, outside click or Esc
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.burger'), panel = document.getElementById('mnav');
+    if (!btn || !panel) return;
+    const set = open => { panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', e => { e.stopPropagation(); set(panel.hidden); });
+    panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => set(false)));
+    document.addEventListener('click', e => { if (!panel.hidden && !panel.contains(e.target) && e.target !== btn) set(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+  });
 
   // Mobile quick-booking bar: appears after the hero, hides when the booking section is on screen
   document.addEventListener('DOMContentLoaded', () => {
