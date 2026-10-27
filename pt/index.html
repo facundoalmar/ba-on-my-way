@@ -24,70 +24,6 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Quanto tempo dura o tour?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "3,5 horas, com três bares e um anfitrião com você o tempo todo."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "É só para viajantes?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Viajantes do mundo todo são nossos principais convidados, mas locais que buscam uma ótima noite também são bem-vindos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quando acontece?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Todas as noites, o ano todo. Sextas e sábados lotam rápido."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Preciso levar dinheiro?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Drinks e shots fazem parte da experiência. Pagamento e extras são feitos pela plataforma que você escolher."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Vou receber fotos?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sim. Fotografamos em filme durante toda a noite e depois enviamos uma pasta digital com suas fotos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Onde reservo?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "O mais rápido é chamar pelo WhatsApp para consultar disponibilidade. Você também pode reservar no Airbnb ou no Viator. Use os botões da seção de reservas acima."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Podemos continuar depois do tour?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sim. Se ainda estiver com energia, nossos anfitriões ajudam a continuar a noite."
-      }
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
   "@type": "TouristTrip",
   "name": "BA on my way",
   "description": "Um pub crawl sofisticado e animado por três dos melhores bares de Buenos Aires: Palermo, Palermo Soho, Chacarita e Villa Crespo.",
@@ -145,6 +81,7 @@
   .skip:focus{top:16px}
   .quote .w{opacity:.3;transition:opacity .7s cubic-bezier(0.32,0.72,0,1)}
   .quote .w.on{opacity:1}
+  .quote-sub{text-align:center;max-width:60ch;margin:16px auto 0;color:var(--muted);font-size:1.02rem}
   .wrap{width:min(1120px,92vw);margin-inline:auto}
   h1,h2,h3{font-family:var(--display);line-height:1.05;letter-spacing:-.01em}
   .eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);font-weight:600}
@@ -269,7 +206,6 @@
   .stop .num{font-family:var(--display);font-size:4.6rem;font-weight:800;color:#EFE3FF;position:absolute;right:16px;top:-8px;line-height:1}
   .stop h3{font-size:1.7rem;margin:10px 0 12px}
   .stop p{color:var(--muted);font-size:.97rem}
-  .stop .hood{display:inline-block;margin-top:16px;font-size:.8rem;font-weight:600;color:var(--violet);background:#F4ECFF;padding:6px 12px;border-radius:999px}
   @media (max-width:860px){.stops{grid-template-columns:1fr}}
 
   /* WHAT'S INCLUDED */
@@ -334,8 +270,6 @@
   @media (min-width:860px){.book .note{white-space:nowrap}}
   @media (max-width:860px){.platforms{grid-template-columns:1fr}}
 
-  /* FAQ */
-  .faq{max-width:820px;margin:0 auto;display:grid;gap:12px}
   details{background:#fff;border-radius:18px;padding:22px 26px;box-shadow:0 6px 20px -16px rgba(30,20,51,.3)}
   summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:1.22rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
   summary::-webkit-details-marker{display:none}
@@ -372,9 +306,8 @@
     <a href="#top" class="brand"><img src="/assets/logo-horizontal.webp" alt="BA on my way" style="height:44px;width:auto"></a>
     <nav class="nav-links" aria-label="Main">
       <a href="#what" data-i18n="nav_what">O tour</a>
-      <a href="#stops" data-i18n="nav_stops">Roteiro</a>
+      <a href="#stops" data-i18n="nav_stops">Onde e quando</a>
       <a href="#why" data-i18n="nav_why">Por que nós</a>
-      <a href="#faq" data-i18n="nav_faq">Dúvidas</a>
       <a href="#book" class="btn btn-primary btn-nav" data-i18n="nav_book">Reservar</a>
         <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span><span></span></button>
       <div class="lang" role="group" aria-label="Language">
@@ -385,9 +318,8 @@
     </nav>
     <div class="mnav" id="mnav" hidden>
       <a href="#what" data-i18n="nav_what">O tour</a>
-      <a href="#stops" data-i18n="nav_stops">Roteiro</a>
+      <a href="#stops" data-i18n="nav_stops">Onde e quando</a>
       <a href="#why" data-i18n="nav_why">Por que nós</a>
-      <a href="#faq" data-i18n="nav_faq">Dúvidas</a>
     </div>
   </div>
 </header>
@@ -415,19 +347,13 @@
 <!-- PHOTO STRIP: scrollable (drag, swipe or auto-advance); click a photo to open it -->
 <div class="strip" aria-label="Photos from the tour"><div class="strip-track"><div class="strip-set"><button type="button" data-idx="0"><img src="/assets/photos/01.jpg" alt="Group of travelers toasting with cocktails during a Buenos Aires bar tour"></button><button type="button" data-idx="1"><img src="/assets/photos/02.jpg" alt="Friends clinking shot glasses at a bar in Buenos Aires"></button><button type="button" data-idx="2"><img src="/assets/photos/03.jpg" alt="Night crowd dancing in a Palermo Soho bar"></button><button type="button" data-idx="3"><img src="/assets/photos/04.jpg" alt="Bottles and drinks on a bar counter in Buenos Aires"></button><button type="button" data-idx="4"><img src="/assets/photos/05.jpg" alt="Travelers laughing together on a Buenos Aires night out"></button><button type="button" data-idx="5"><img src="/assets/photos/06.jpg" alt="Group photo on film at a Chacarita bar"></button><button type="button" data-idx="6"><img src="/assets/photos/07.jpg" alt="Champagne toast with new friends in Villa Crespo"></button><button type="button" data-idx="7"><img src="/assets/photos/08.jpg" alt="Celebration with friends at a porteño bar"></button></div><div class="strip-set"><button type="button" data-idx="0" aria-hidden="true" tabindex="-1"><img src="/assets/photos/01.jpg"></button><button type="button" data-idx="1" aria-hidden="true" tabindex="-1"><img src="/assets/photos/02.jpg"></button><button type="button" data-idx="2" aria-hidden="true" tabindex="-1"><img src="/assets/photos/03.jpg"></button><button type="button" data-idx="3" aria-hidden="true" tabindex="-1"><img src="/assets/photos/04.jpg"></button><button type="button" data-idx="4" aria-hidden="true" tabindex="-1"><img src="/assets/photos/05.jpg"></button><button type="button" data-idx="5" aria-hidden="true" tabindex="-1"><img src="/assets/photos/06.jpg"></button><button type="button" data-idx="6" aria-hidden="true" tabindex="-1"><img src="/assets/photos/07.jpg"></button><button type="button" data-idx="7" aria-hidden="true" tabindex="-1"><img src="/assets/photos/08.jpg"></button></div></div></div>
 <section id="what">
-  <div class="wrap split">
+  <div class="wrap" style="max-width:820px">
     <div class="reveal">
       <p class="eyebrow" data-i18n="what_eyebrow">01 · O que é?</p>
-      <h2 data-i18n="what_h2">Um pub crawl sofisticado, com curadoria cuidadosa.</h2>
-      <p data-i18n="what_p1">Somos um tour de bares de Buenos Aires que leva você a três dos bares mais legais da cidade em uma só noite. Por 3,5 horas você passa por diferentes lugares, prova aperitivos argentinos, toma drinks e shots, conhece gente do mundo todo e vive a vida noturna com anfitriões que sabem exatamente onde está rolando.</p>
-      <p data-i18n="what_p2">Exploramos Palermo, Palermo Soho, Chacarita e Villa Crespo, sempre buscando os lugares mais empolgantes, autênticos e divertidos da cidade.</p>
-      <p><strong data-i18n="what_p3">Três bares. Três horas e meia. Uma noite inesquecível.</strong></p>
-    </div>
-    <div class="stat-card reveal">
-      <div class="stat"><strong>3</strong><span data-i18n="stat1">bares selecionados no auge</span></div>
-      <div class="stat"><strong>3.5h</strong><span data-i18n="stat2">de música, drinks e boa companhia</span></div>
-      <div class="stat"><strong>2018</strong><span data-i18n="stat3">noites organizadas em Buenos Aires</span></div>
-      <div class="stat"><strong>6k+</strong><span data-i18n="stat4">pessoas que já fizeram o tour</span></div>
+      <h2 data-i18n="what_h2">Um pub crawl sofisticado por Buenos Aires</h2>
+      <p data-i18n="what_p1">Somos um tour de bares de Buenos Aires que leva você a três dos bares mais legais da cidade em uma só noite.</p>
+      <p data-i18n="what_p2">Não é um pub crawl comum. É um tour de bares sofisticado, social e com curadoria cuidadosa.</p>
+      <p data-i18n="what_p3">Exploramos Palermo, Palermo Soho, Chacarita e Villa Crespo.</p>
     </div>
   </div>
 </section>
@@ -436,28 +362,25 @@
 <section id="stops" class="band">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow" data-i18n="stops_eyebrow">Seu roteiro</p>
-      <h2 data-i18n="stops_h2">Quatro bairros. Uma noite.</h2>
-      <p data-i18n="stops_p">Os bares exatos podem variar conforme o tamanho do grupo, mas a energia é sempre a mesma: os melhores bares, no melhor momento.</p>
+      <p class="eyebrow" data-i18n="stops_eyebrow">Onde e quando</p>
+      <h2 data-i18n="stops_h2">Onde, quando e por quanto tempo?</h2>
+      <p data-i18n="stops_p">Percorremos alguns dos melhores bairros noturnos de Buenos Aires. Os bares exatos podem variar conforme o tamanho do grupo. Recebemos viajantes do mundo todo e também locais que querem uma ótima noite.</p>
     </div>
     <div class="stops">
       <article class="stop reveal">
         <span class="num">1</span>
-        <h3 data-i18n="stop1_h">Aquecimento</h3>
-        <p data-i18n="stop1_p">Começamos em Palermo com um aperitivo argentino e o primeiro shot da noite, enquanto o grupo se conhece.</p>
-        <span class="hood">Palermo</span>
+        <h3 data-i18n="stop1_h">Onde</h3>
+        <p data-i18n="stop1_p">Palermo · Palermo Soho · Chacarita · Villa Crespo</p>
       </article>
       <article class="stop reveal">
         <span class="num">2</span>
-        <h3 data-i18n="stop2_h">A festa</h3>
-        <p data-i18n="stop2_p">Palermo Soho e Chacarita: música, dança e a parte mais intensa e espontânea da noite.</p>
-        <span class="hood">Palermo Soho · Chacarita</span>
+        <h3 data-i18n="stop2_h">Duração</h3>
+        <p data-i18n="stop2_p">Três bares em 3,5 horas.</p>
       </article>
       <article class="stop reveal">
         <span class="num">3</span>
-        <h3 data-i18n="stop3_h">A última rodada</h3>
-        <p data-i18n="stop3_p">Villa Crespo para fechar o tour com um último drink, e um anfitrião pronto para ajudar você a continuar se a noite não tiver acabado.</p>
-        <span class="hood">Villa Crespo</span>
+        <h3 data-i18n="stop3_h">Quando</h3>
+        <p data-i18n="stop3_p">Todas as noites, o ano todo. Sextas e sábados costumam esgotar, então não perca!</p>
       </article>
     </div>
   </div>
@@ -471,16 +394,16 @@
       <h2 data-i18n="inc_h2">Você chega. A gente cuida do resto.</h2>
     </div>
     <div class="included">
-      <article class="inc reveal"><div class="ico">🥂</div><h3 data-i18n="inc1_h">Degustação de aperitivos argentinos</h3><p data-i18n="inc1_p">Conheça algumas das bebidas e sabores que fazem parte da cultura argentina de drinks.</p></article>
-      <article class="inc reveal"><div class="ico">🥃</div><h3 data-i18n="inc2_h">Um shot em cada parada</h3><p data-i18n="inc2_p">Cada parada tem um shot para manter a energia lá em cima.</p></article>
-      <article class="inc reveal"><div class="ico">💧</div><h3 data-i18n="inc3_h">Água a noite toda</h3><p data-i18n="inc3_p">Cuidamos para que você se mantenha hidratado enquanto se diverte.</p></article>
-      <article class="inc reveal"><div class="ico">🎞️</div><h3 data-i18n="inc4_h">Fotos analógicas, pasta digital</h3><p data-i18n="inc4_p">Fotografamos a noite em filme e depois enviamos uma pasta digital com suas fotos.</p></article>
-      <article class="inc reveal"><div class="ico">🎶</div><h3 data-i18n="inc5_h">Música, dança e vida noturna</h3><p data-i18n="inc5_p">Chegamos quando o clima, as pessoas e a energia estão no auge.</p></article>
-      <article class="inc reveal"><div class="ico">🧭</div><h3 data-i18n="inc6_h">Anfitriões especializados</h3><p data-i18n="inc6_p">Eles acompanham você do início ao fim: apresentam os lugares, mantêm o grupo unido e garantem que todos se divirtam.</p></article>
+      <article class="inc reveal"><div class="ico">🥂</div><h3 data-i18n="inc1_h">Degustação de aperitivos argentinos</h3></article>
+      <article class="inc reveal"><div class="ico">🥃</div><h3 data-i18n="inc2_h">Shots em cada parada</h3></article>
+      <article class="inc reveal"><div class="ico">💧</div><h3 data-i18n="inc3_h">Água durante toda a noite</h3></article>
+      <article class="inc reveal"><div class="ico">🎞️</div><h3 data-i18n="inc4_h">Fotos analógicas</h3><p data-i18n="inc4_p">Mandamos uma pasta para você baixar tudo!</p></article>
+      <article class="inc reveal"><div class="ico">🎶</div><h3 data-i18n="inc5_h">DJs ao vivo e dança</h3><p data-i18n="inc5_p">No final, a gente dança!</p></article>
+      <article class="inc reveal"><div class="ico">🧭</div><h3 data-i18n="inc6_h">Anfitriões especializados</h3></article>
     </div>
     <div class="after reveal">
-      <h3 data-i18n="after_h">E quando o tour acaba? A noite não precisa parar.</h3>
-      <p data-i18n="after_p">Ajudamos você a continuar: outro bar, uma festa ou um lugar para dançar até tarde.</p>
+      <h3 data-i18n="after_h">Bônus extra: ajudamos você a continuar a noite.</h3>
+      <p data-i18n="after_p">Outro bar, uma festa ou um lugar para dançar até tarde.</p>
     </div>
   </div>
 </section>
@@ -491,7 +414,6 @@
     <div class="section-head reveal">
       <p class="eyebrow" data-i18n="gal_eyebrow">Noites reais, em filme</p>
       <h2 id="gal-h" data-i18n="gal_h2">Memórias analógicas do tour.</h2>
-      <p data-i18n="gal_p">Fotografado em filme pela nossa equipe, toda noite. Grupos, brindes, garrafas e a felicidade que não dá para fingir.</p>
     </div>
     <div class="gallery">
       <!-- Replace src with the 46 Drive photos, optimized to ~1600px WebP. Keep alt text descriptive. -->
@@ -529,11 +451,11 @@
 <!-- WHY -->
 <section id="why">
   <div class="wrap">
-    <p class="quote reveal"><span data-i18n="why_quote1">Você só conhece Buenos Aires de verdade quando vive</span> <em data-i18n="why_quote2">a noite.</em></p>
+    <p class="quote reveal"><span data-i18n="why_quote1">Mas existe outro lado da cidade</span> <em data-i18n="why_quote2">que só aparece depois do anoitecer.</em></p>
+    <p class="quote-sub reveal" data-i18n="quote_sub">A vida noturna de Buenos Aires. Prepare-se para uma experiência divertida, animada, sofisticada, espontânea e naturalmente cool.</p>
     <div class="why">
-      <article class="reveal"><h3 data-i18n="why1_h">Desde 2018</h3><p data-i18n="why1_p">Organizamos tours de bares desde 2018, reunindo viajantes, locais e pessoas de todo o mundo. Mais de 6.000 pessoas já viveram a noite com a gente.</p></article>
-      <article class="reveal"><h3 data-i18n="why2_h">Sem filas. Sem complicação.</h3><p data-i18n="why2_p">Temos acesso direto aos lugares, pulamos as filas e reservamos um espaço exclusivo para o grupo. Você só precisa aparecer e aproveitar.</p></article>
-      <article class="reveal"><h3 data-i18n="why3_h">No momento certo, sempre</h3><p data-i18n="why3_p">Conhecemos a cidade, conhecemos os bares e, o mais importante, sabemos como ter uma boa noite. Levamos você quando o bar está no auge.</p></article>
+      <article class="reveal"><h3 data-i18n="why1_h">Desde 2018</h3><p data-i18n="why1_p">Animamos a noite de Buenos Aires desde 2018, reunindo viajantes, locais e pessoas do mundo todo. Mais de 6.000 pessoas já viveram a noite com a gente.</p></article>
+      <article class="reveal"><h3 data-i18n="why2_h">Sem filas. Sem complicação. Sem pensar em para onde ir.</h3><p data-i18n="why2_p">Temos acesso direto aos bares, pulamos as filas e reservamos um espaço exclusivo para o grupo. Você só chega e aproveita.</p></article>
     </div>
   </div>
 </section>
@@ -546,8 +468,8 @@
       <p class="eyebrow" data-i18n="fdr_eyebrow">Quem está por trás?</p>
       <h2 data-i18n="fdr_h2">Conheça a Florencia.</h2>
       <p data-i18n="fdr_p1">O tour foi criado por <b>Florencia Migliorisi</b>, ex-bartender que também trabalhou com empresas de bebidas e se dedica há mais de <b>20 anos à hospitalidade</b>.</p>
-      <p data-i18n="fdr_p2">Florencia estudou Ciência Política, adora yoga e sempre teve paixão por reunir pessoas. Para ela, sair não é só achar um bom bar. <b>É sobre as pessoas que você conhece, as histórias que cria e as memórias que leva para casa.</b></p>
-      <p data-i18n="fdr_p3">Algumas das coisas mais engraçadas que aconteceram nos nossos tours? Pessoas se apaixonaram. Amizades começaram. Desconhecidos acabaram dançando juntos. É esse tipo de noite que queremos criar.</p>
+      <p data-i18n="fdr_p2">Florencia estudou Ciência Política, adora yoga e sempre teve paixão por reunir pessoas.</p>
+      <p data-i18n="fdr_p3"><i>E algumas das coisas mais engraçadas que já aconteceram nos nossos tours?</i> <b>Pessoas se apaixonaram. Nasceram amizades. Desconhecidos acabaram dançando juntos.</b></p>
     </div>
   </div>
 </section>
@@ -557,7 +479,7 @@
   <div class="wrap">
     <p class="eyebrow" data-i18n="book_eyebrow">Pronto para sair?</p>
     <h2 data-i18n="book_h2">Reserve sua noite.</h2>
-    <p data-i18n="book_p">Escolha a plataforma, confira a disponibilidade para a sua data e apareça. O WhatsApp é a forma mais rápida de consultar disponibilidade; você também pode reservar no Airbnb ou no Viator.</p>
+    <p data-i18n="book_p">Envie uma mensagem e consulte a disponibilidade para a sua data. Depois de confirmada, você pode pagar com PayPal · Payoneer · Dinheiro. Depois é só chegar, conhecer a equipe e deixar a noite com a gente.</p>
     <div class="platforms">
       <a class="platform whatsapp" href="https://wa.me/541168740876" target="_blank" rel="noopener">
         <span class="name">WhatsApp</span>
@@ -575,28 +497,11 @@
         <span class="cta" data-i18n="plat_cta_v">Reservar no Viator →</span>
       </a>
     </div>
-    <p class="note" data-i18n="book_note">Os fins de semana esgotam rápido. Sexta e sábado costumam estar lotados, então não espere.</p>
+    <p class="note" data-i18n="book_note">Sextas e sábados costumam esgotar, então não perca!</p>
   </div>
 </section>
 
-<!-- FAQ -->
-<section id="faq">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow">FAQ</p>
-      <h2 data-i18n="faq_h2">O que você precisa saber.</h2>
-    </div>
-    <div class="faq">
-      <details><summary data-i18n="q1">Quanto tempo dura o tour?</summary><p data-i18n="a1">3,5 horas, com três bares e um anfitrião com você o tempo todo.</p></details>
-      <details><summary data-i18n="q2">É só para viajantes?</summary><p data-i18n="a2">Viajantes do mundo todo são nossos principais convidados, mas locais que buscam uma ótima noite também são bem-vindos.</p></details>
-      <details><summary data-i18n="q3">Quando acontece?</summary><p data-i18n="a3">Todas as noites, o ano todo. Sextas e sábados lotam rápido.</p></details>
-      <details><summary data-i18n="q4">Preciso levar dinheiro?</summary><p data-i18n="a4">Drinks e shots fazem parte da experiência. Pagamento e extras são feitos pela plataforma que você escolher.</p></details>
-      <details><summary data-i18n="q5">Vou receber fotos?</summary><p data-i18n="a5">Sim. Fotografamos em filme durante toda a noite e depois enviamos uma pasta digital com suas fotos.</p></details>
-      <details><summary data-i18n="q6">Onde reservo?</summary><p data-i18n="a6">O mais rápido é chamar pelo WhatsApp para consultar disponibilidade. Você também pode reservar no Airbnb ou no Viator. Use os botões da seção de reservas acima.</p></details>
-      <details><summary data-i18n="q7">Podemos continuar depois do tour?</summary><p data-i18n="a7">Sim. Se ainda estiver com energia, nossos anfitriões ajudam a continuar a noite.</p></details>
-    </div>
-  </div>
-</section>
+
 
 </main>
 
@@ -605,7 +510,7 @@
     <div class="row">
       <a class="brand" href="#top">BA on my way</a>
       <nav aria-label="Footer">
-        <a href="#what">What</a><a href="#stops">Stops</a><a href="#why">Why us</a><a href="#faq">FAQ</a><a href="#book">Book</a>
+        <a href="#what" data-i18n="nav_what">O tour</a><a href="#stops" data-i18n="nav_stops">Onde e quando</a><a href="#why" data-i18n="nav_why">Por que nós</a><a href="#book" data-i18n="nav_book">Reservar</a>
       </nav>
     </div>
     <p class="copy">© <span id="yr"></span> BA on my way · Buenos Aires, Argentina · <span data-i18n="foot_tag">Beba com responsabilidade. Somente para maiores de idade.</span></p>
