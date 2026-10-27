@@ -126,6 +126,7 @@
   @media (prefers-reduced-motion:reduce){.burger span{transition:none}}
   .mnav{position:absolute;top:calc(100% + 8px);right:16px;min-width:220px;background:#fff;border-radius:18px;box-shadow:0 20px 40px -18px rgba(30,20,51,.35);padding:10px;display:flex;flex-direction:column;z-index:70}
   .mnav[hidden]{display:none}
+  @media (min-width:861px){.burger,.mnav{display:none!important}}
   .mnav a{padding:12px 14px;border-radius:12px;text-decoration:none;color:var(--ink);font-weight:500}
   .mnav a:hover{background:#F3ECFF;color:var(--violet)}
 
@@ -547,6 +548,7 @@
     panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => set(false)));
     document.addEventListener('click', e => { if (!panel.hidden && !panel.contains(e.target) && e.target !== btn) set(false); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+    matchMedia('(min-width:861px)').addEventListener('change', e => { if (e.matches) set(false); });
   });
 
   // Mobile quick-booking bar: appears after the hero, hides when the booking section is on screen
