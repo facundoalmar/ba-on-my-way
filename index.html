@@ -625,14 +625,16 @@
     }, true);
 
     // lightbox
-    const items = [...strip.querySelectorAll('.strip-set:first-child button img')].map(i => i.src);
+    // read the strip when a photo opens, so the viewer shows the photos loaded from the API
+    const shots = () => [...strip.querySelectorAll('.strip-set:first-child button img')];
     const lbImg = lb.querySelector('img'), count = lb.querySelector('.count');
     let cur = 0;
     const show = i => {
-      cur = (i + items.length) % items.length;
-      lbImg.src = items[cur];
-      lbImg.alt = strip.querySelectorAll('.strip-set:first-child button img')[cur].alt;
-      count.textContent = (cur + 1) + ' / ' + items.length;
+      const imgs = shots();
+      cur = (i + imgs.length) % imgs.length;
+      lbImg.src = imgs[cur].src;
+      lbImg.alt = imgs[cur].alt;
+      count.textContent = (cur + 1) + ' / ' + imgs.length;
     };
     const openLb = i => { show(i); lb.hidden = false; document.body.style.overflow = 'hidden'; lb.querySelector('.x').focus(); };
     const closeLb = () => { lb.hidden = true; document.body.style.overflow = ''; };
@@ -679,5 +681,41 @@
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden><button type="button" class="x" aria-label="Close">×</button><button type="button" class="prev" aria-label="Previous photo">‹</button><img alt=""><button type="button" class="next" aria-label="Next photo">›</button><div class="count"></div></div>
 <a class="wa-fab" href="https://wa.me/541168740876?text=Hi%21%20I%27d%20like%20to%20check%20availability%20for%20a%20BA%20on%20my%20way%20tour." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.2 5.2 0 0 0 3.1.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c0-.1-.2-.2-.4-.3z"/></svg></a>
 <nav class="mbar" id="mbar" aria-label="Quick booking"><a class="p" href="#book" data-i18n="mbar_check">Check availability</a><a class="w" href="https://wa.me/541168740876?text=Hi%21%20I%27d%20like%20to%20check%20availability%20for%20a%20BA%20on%20my%20way%20tour." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.2 5.2 0 0 0 3.1.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c0-.1-.2-.2-.4-.3z"/></svg></a></nav>
+<script>
+// Photos come from the Drive folder "PARA LA WEB" through /api/photos: a new random
+// selection on each visit. The photos written in the HTML stay as the fallback.
+(function () {
+  var hero = document.querySelectorAll('.hx-slides img');
+  var strip = document.querySelectorAll('.strip-set button img');
+  function url(p) { return '/api/photo?id=' + encodeURIComponent(p.id) + '&v=' + encodeURIComponent(p.v); }
+  function pick(n) {
+    return fetch('/api/photos?n=' + n, { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('photos ' + r.status); return r.json(); })
+      .then(function (d) { return d.photos && d.photos.length ? d.photos : null; });
+  }
+  // if a Drive photo cannot load, show the local photo that was in the HTML
+  function swap(img, src) {
+    var local = img.getAttribute('src');
+    img.onerror = function () { img.onerror = null; img.src = local; };
+    img.src = src;
+  }
+  if (hero.length) {
+    pick(hero.length).then(function (ps) {
+      if (!ps) return;
+      hero.forEach(function (img, i) { swap(img, url(ps[i % ps.length])); });
+    }).catch(function () {});
+  }
+  if (strip.length) {
+    pick(8).then(function (ps) {
+      if (!ps) return;
+      // both sets of the strip get the same photos, so the loop stays seamless
+      strip.forEach(function (img, i) {
+        swap(img, url(ps[(i % 8) % ps.length]));
+        img.alt = 'BA on my way tour photo';
+      });
+    }).catch(function () {});
+  }
+})();
+</script>
 </body>
 </html>

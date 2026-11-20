@@ -1,0 +1,12 @@
+{
+  "name": "ba-on-my-way",
+  "private": true,
+  "version": "1.0.0",
+  "description": "BA on my way, one-page site. Photos come from a Google Drive folder through /api/photos.",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
+}
