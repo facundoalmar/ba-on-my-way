@@ -91,7 +91,9 @@
   header.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,backdrop-filter .3s}
   header.nav.scrolled{background:rgba(251,249,255,.86);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(30,20,51,.06)}
   header.nav .brand{transition:opacity .3s}
-  header.nav:not(.scrolled) .brand{opacity:0;pointer-events:none}
+  header.nav:not(.scrolled){background:linear-gradient(180deg,rgba(30,20,51,.55),rgba(30,20,51,0))}
+  header.nav:not(.scrolled) .brand img{filter:brightness(0) invert(1)}
+  header.nav:not(.scrolled) .nav-links > a:not(.btn-nav),header.nav:not(.scrolled) .nav-links > a:not(.btn-nav):hover{color:var(--paper)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
   .brand{font-family:var(--display);font-weight:800;font-size:1.35rem;text-decoration:none;color:var(--violet)}
   .nav-links{display:flex;gap:26px;align-items:center;font-size:.92rem}
@@ -130,25 +132,6 @@
   .mnav a{padding:12px 14px;border-radius:12px;text-decoration:none;color:var(--ink);font-weight:500}
   .mnav a:hover{background:#F3ECFF;color:var(--violet)}
 
-  /* HERO */
-  .hero{min-height:100vh;min-height:100svh;display:grid;place-items:center;position:relative;overflow:hidden;
-    background:url(/assets/brand-gradient.webp) center/cover no-repeat;padding:120px 0 80px}
-  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none}
-  .hero::before{width:520px;height:520px;background:#E3B6FF;top:-120px;right:-120px}
-  .hero::after{width:440px;height:440px;background:#B6F0D0;bottom:-140px;left:-100px}
-  .hero-inner{position:relative;text-align:center;z-index:1}
-  .hero-logo{width:min(440px,72vw);height:auto;margin:0 auto 28px;filter:drop-shadow(0 20px 30px rgba(122,54,196,.35))}
-  .hero h1{font-size:clamp(2.2rem,6vw,4.2rem);color:var(--ink);max-width:16ch;margin:0 auto}
-  @media (min-width:860px){.hero h1{max-width:none;white-space:nowrap}}
-  .hero h1 em{font-style:italic;color:var(--violet)}
-  .hero p.lead{margin:20px auto 34px;max-width:54ch;font-size:clamp(1.02rem,2vw,1.18rem);color:var(--ink);opacity:.85}
-  .hero-slides{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:heroFade 16s infinite}
-  .hero-slides img:nth-child(2){animation-delay:4s}
-  .hero-slides img:nth-child(3){animation-delay:8s}
-  .hero-slides img:nth-child(4){animation-delay:12s}
-  .hero-slides::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(251,249,255,.82) 0%,rgba(251,249,255,.55) 60%,rgba(251,249,255,.3) 100%)}
-  @keyframes heroFade{0%{opacity:0}6%{opacity:.6}25%{opacity:.6}31%,100%{opacity:0}}
   .strip{overflow-x:auto;overflow-y:hidden;position:relative;z-index:1;padding:6px 0 10px;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
   .strip::-webkit-scrollbar{display:none}
   .strip.dragging{cursor:grabbing;user-select:none}
@@ -159,7 +142,35 @@
   .strip-set img{display:block;height:220px;width:auto;pointer-events:none}
   @media (max-width:860px){.strip-set img{height:160px}}
   @media (min-width:860px){.after p{white-space:nowrap;max-width:none}}
-  @media (prefers-reduced-motion:reduce){.hero-slides img{animation:none}.hero-slides img:first-child{opacity:.6}}
+  /* HERO: full-bleed slideshow of 10 photos (4 s each, 40 s cycle), colour wash, one slow beam, camera flash on each photo change */
+  .hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate;background:var(--ink)}
+  .hx-slides{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hx-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:saturate(.85) brightness(.8);animation:hx-slide 40s infinite linear}
+  .hx-slides img:nth-child(1){animation-delay:0s}.hx-n:nth-child(1){animation-delay:0s}.hx-slides img:nth-child(2){animation-delay:4s}.hx-n:nth-child(2){animation-delay:4s}.hx-slides img:nth-child(3){animation-delay:8s}.hx-n:nth-child(3){animation-delay:8s}.hx-slides img:nth-child(4){animation-delay:12s}.hx-n:nth-child(4){animation-delay:12s}.hx-slides img:nth-child(5){animation-delay:16s}.hx-n:nth-child(5){animation-delay:16s}.hx-slides img:nth-child(6){animation-delay:20s}.hx-n:nth-child(6){animation-delay:20s}.hx-slides img:nth-child(7){animation-delay:24s}.hx-n:nth-child(7){animation-delay:24s}.hx-slides img:nth-child(8){animation-delay:28s}.hx-n:nth-child(8){animation-delay:28s}.hx-slides img:nth-child(9){animation-delay:32s}.hx-n:nth-child(9){animation-delay:32s}.hx-slides img:nth-child(10){animation-delay:36s}.hx-n:nth-child(10){animation-delay:36s}
+  .hx-slides::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,20,51,.92) 0%,rgba(30,20,51,.58) 58%,rgba(30,20,51,.28) 100%),linear-gradient(0deg,rgba(30,20,51,.9) 0%,rgba(30,20,51,0) 42%)}
+  @keyframes hx-slide{0%{opacity:0;transform:scale(1.07)}2.5%{opacity:1}10%{opacity:1;transform:scale(1)}12.5%,100%{opacity:0;transform:scale(1)}}
+  .hx-tint{position:absolute;inset:0;z-index:1;mix-blend-mode:color;opacity:.2;pointer-events:none;animation:hx-tint 40s linear infinite}
+  @keyframes hx-tint{0%,9.9%{background:#B350DD}10%,19.9%{background:#9DC2FF}20%,29.9%{background:#7A36C4}30%,39.9%{background:#C8F7DF}40%,49.9%{background:#B350DD}50%,59.9%{background:#9DC2FF}60%,69.9%{background:#7A36C4}70%,79.9%{background:#C8F7DF}80%,89.9%{background:#B350DD}90%,99.9%{background:#9DC2FF}100%{background:#B350DD}}
+  .hx-beam{position:absolute;left:-40%;right:-40%;top:-60%;bottom:-40%;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.4;background:conic-gradient(from 0deg at 50% 0%,transparent 0deg,transparent 166deg,rgba(200,247,223,.1) 172deg,rgba(179,80,221,.22) 180deg,rgba(200,247,223,.1) 188deg,transparent 194deg,transparent 360deg);animation:hx-sweep 40s linear infinite}
+  @keyframes hx-sweep{to{transform:rotate(360deg)}}
+  .hx-flash{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;opacity:0;background:radial-gradient(ellipse at 40% 30%,rgba(255,255,255,.85),rgba(200,247,223,.25) 55%,transparent 80%);animation:hx-flash 40s linear infinite}
+  @keyframes hx-flash{0%{opacity:.28}3%{opacity:0}9.9%{opacity:0}10%{opacity:.28}13%{opacity:0}19.9%{opacity:0}20%{opacity:.28}23%{opacity:0}29.9%{opacity:0}30%{opacity:.28}33%{opacity:0}39.9%{opacity:0}40%{opacity:.28}43%{opacity:0}49.9%{opacity:0}50%{opacity:.28}53%{opacity:0}59.9%{opacity:0}60%{opacity:.28}63%{opacity:0}69.9%{opacity:0}70%{opacity:.28}73%{opacity:0}79.9%{opacity:0}80%{opacity:.28}83%{opacity:0}89.9%{opacity:0}90%{opacity:.28}93%{opacity:0}99.9%{opacity:0}100%{opacity:.28}}
+  .hx-content{position:relative;z-index:4;padding:0 7vw 150px;max-width:900px}
+  .hx-eyebrow{font:500 .75rem/1.4 var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--mint);margin-bottom:22px}
+  .hx-title{font-family:var(--display);font-weight:600;font-size:clamp(3rem,6.2vw,5.4rem);line-height:1.02;letter-spacing:-.015em;color:var(--paper)}
+  .hx-title em{font-style:italic;color:#D9C8F5}
+  .hx-sub{margin-top:24px;max-width:42ch;font-size:clamp(1rem,1.6vw,1.12rem);line-height:1.6;color:rgba(251,249,255,.82)}
+  .hx-cta{display:inline-flex;align-items:center;gap:10px;margin-top:34px;padding:16px 28px;border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem}
+  .hx-counter{position:absolute;z-index:4;right:calc(6vw + 74px);bottom:72px;display:flex;align-items:baseline;gap:8px;font:500 .8rem/1 var(--body);letter-spacing:.2em;color:rgba(251,249,255,.7)}
+  .hx-nums{display:inline-grid}
+  .hx-n{grid-area:1/1;opacity:0;animation:hx-num 40s infinite linear}
+  @keyframes hx-num{0%{opacity:0}2.5%{opacity:1}10%{opacity:1}12.5%,100%{opacity:0}}
+  .hx-marquee{position:relative;z-index:4;overflow:hidden;border-top:1px solid rgba(251,249,255,.14);padding:15px 0}
+  .hx-track{display:flex;width:max-content;animation:hx-marq 60s linear infinite}
+  .hx-track span{font:500 .7rem/1 var(--body);letter-spacing:.24em;text-transform:uppercase;color:rgba(251,249,255,.6);white-space:nowrap}
+  @keyframes hx-marq{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.hx-slides img,.hx-tint,.hx-beam,.hx-flash,.hx-track,.hx-n,.hx-cta{animation:none!important}.hx-flash,.hx-beam{display:none}.hx-slides img:first-child,.hx-n:first-child{opacity:1}}
+  @media (max-width:860px){.hx-content{padding:0 6vw 118px}.hx-title{font-size:clamp(2.6rem,11.5vw,3.5rem)}.hx-sub{font-size:.98rem}.hx-counter{right:6vw;bottom:64px}.hx-track span{font-size:.64rem}}
   .lb{position:fixed;inset:0;z-index:100;background:rgba(20,12,34,.92);display:flex;align-items:center;justify-content:center;padding:24px}
   .lb[hidden]{display:none}
   .lb img{max-width:min(1100px,92vw);max-height:84vh;border-radius:14px;object-fit:contain}
@@ -169,7 +180,6 @@
   .lb .prev{left:18px;top:50%;transform:translateY(-50%)}
   .lb .next{right:18px;top:50%;transform:translateY(-50%)}
   .lb .count{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-size:.9rem;opacity:.8}
-  .hero .hero-inner > .btn{margin-top:30px}
   .wa-fab{position:fixed;right:22px;bottom:22px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px -10px rgba(0,0,0,.45);text-decoration:none;transition:transform .2s}
   .wa-fab:hover{transform:scale(1.07)}
   .wa-fab svg{width:30px;height:30px}
@@ -183,8 +193,6 @@
     .mbar .w{width:50px;height:50px;background:#25D366;color:#fff;flex:none}
     .mbar .w svg{width:26px;height:26px}
   }
-  .hero .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:34px}
-  .chip{background:rgba(255,255,255,.7);backdrop-filter:blur(6px);padding:8px 16px;border-radius:999px;font-size:.86rem;font-weight:500}
 
   /* INTRO */
   .split{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
@@ -292,11 +300,13 @@
   @media (max-width:860px){
     .nav-links{gap:8px}
     .brand img{height:30px !important}
-    .btn-nav{white-space:nowrap;padding:9px 12px;font-size:.84rem}
+    .btn-nav{white-space:nowrap;padding:8px 10px;font-size:.84rem}
     .lang{padding:3px;flex:none}
     .btn-nav{flex:none}
-    .lang a{padding:5px 7px;font-size:.72rem}
+    .lang a{padding:5px 6px;font-size:.72rem}
   }
+  @media (max-width:420px){.brand img{height:26px !important}}
+  @media (max-width:380px){header.nav .btn-nav{display:none}}
 </style>
 </head>
 <body>
@@ -329,19 +339,18 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-slides" aria-hidden="true"><img src="/assets/photos/01.jpg" alt=""><img src="/assets/photos/03.jpg" alt=""><img src="/assets/photos/05.jpg" alt=""><img src="/assets/photos/07.jpg" alt=""></div>
-  <div class="wrap hero-inner">
-    <img class="hero-logo" src="/assets/logo-vertical.webp" alt="BA on my way logo" width="684" height="624">
-    <p class="eyebrow" data-i18n="hero_eyebrow">Buenos Aires · Tour de bares · Desde 2018</p>
-    <h1 style="margin-top:14px"><span data-i18n="hero_h1a">A noite portenha,</span> <em data-i18n="hero_h1b">do jeito certo.</em></h1>
-    <a href="#book" class="btn btn-primary" data-i18n="hero_cta">Ver disponibilidade →</a>
-    <div class="meta">
-      <span class="chip" data-i18n="chip1">3 bares</span>
-      <span class="chip" data-i18n="chip2">3,5 horas</span>
-      <span class="chip" data-i18n="chip3">Todas as noites, o ano todo</span>
-      <span class="chip" data-i18n="chip4">+6.000 viajantes</span>
-    </div>
+  <div class="hx-slides" aria-hidden="true"><img src="/assets/photos/01.jpg" alt=""><img src="/assets/photos/09.jpg" alt=""><img src="/assets/photos/03.jpg" alt=""><img src="/assets/photos/10.jpg" alt=""><img src="/assets/photos/05.jpg" alt=""><img src="/assets/photos/07.jpg" alt=""><img src="/assets/photos/02.jpg" alt=""><img src="/assets/photos/04.jpg" alt=""><img src="/assets/photos/06.jpg" alt=""><img src="/assets/photos/08.jpg" alt=""></div>
+  <div class="hx-tint" aria-hidden="true"></div>
+  <div class="hx-beam" aria-hidden="true"></div>
+  <div class="hx-flash" aria-hidden="true"></div>
+  <div class="hx-content">
+    <p class="hx-eyebrow" data-i18n="hero_eyebrow">Buenos Aires · Tour de bares · Desde 2018</p>
+    <h1 class="hx-title"><span data-i18n="hero_h1a">Buenos Aires,</span><br><em data-i18n="hero_h1b">depois do anoitecer.</em></h1>
+    <p class="hx-sub" data-i18n="hero_sub">Três bares. Três horas e meia. Uma noite inesquecível.</p>
+    <a href="#book" class="hx-cta" data-i18n="hero_cta">Ver disponibilidade →</a>
   </div>
+  <div class="hx-counter" aria-hidden="true"><span class="hx-nums"><span class="hx-n">01</span><span class="hx-n">02</span><span class="hx-n">03</span><span class="hx-n">04</span><span class="hx-n">05</span><span class="hx-n">06</span><span class="hx-n">07</span><span class="hx-n">08</span><span class="hx-n">09</span><span class="hx-n">10</span></span><span>/ 10</span></div>
+  <div class="hx-marquee" aria-hidden="true"><div class="hx-track"><span data-i18n="hero_marquee">Palermo · Palermo Soho · Chacarita · Villa Crespo · 3 bares · 3,5 horas · Palermo · Palermo Soho · Chacarita · Villa Crespo · 3 bares · 3,5 horas · </span><span data-i18n="hero_marquee">Palermo · Palermo Soho · Chacarita · Villa Crespo · 3 bares · 3,5 horas · Palermo · Palermo Soho · Chacarita · Villa Crespo · 3 bares · 3,5 horas · </span></div></div>
 </section>
 
 <!-- WHAT -->
