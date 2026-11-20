@@ -447,12 +447,12 @@
       <h2 id="ig-h" data-i18n="ig_h2">Lo último en Instagram.</h2>
     </div>
     <div class="ig-strip" id="ig-strip">
-      <a href="https://www.instagram.com/baonmyway/p/De2ACNlFetj/" target="_blank" rel="noopener"><img src="/assets/ig/ig1.webp" alt="Buenos Aires nightlife crowd, post by @baonmyway" loading="lazy"></a>
-      <a href="https://www.instagram.com/baonmyway/p/DeuLdP4lRCo/" target="_blank" rel="noopener"><img src="/assets/ig/ig2.webp" alt="Buenos Aires nightlife, post by @baonmyway" loading="lazy"></a>
-      <a href="https://www.instagram.com/leh.nobrega/p/DehTKJulnNx/" target="_blank" rel="noopener"><img src="/assets/ig/ig3.webp" alt="Travelers on a pub crawl in Buenos Aires, post by @leh.nobrega" loading="lazy"></a>
-      <a href="https://www.instagram.com/melmrtel_/reel/DecIiQ_PIU6/" target="_blank" rel="noopener"><img src="/assets/ig/ig4.webp" alt="Buenos Aires bar tour reel, by @melmrtel_" loading="lazy"></a>
-      <a href="https://www.instagram.com/baonmyway/p/DeU1MyiFK_N/" target="_blank" rel="noopener"><img src="/assets/ig/ig5.webp" alt="Fancy bar tour in Buenos Aires, post by @baonmyway" loading="lazy"></a>
-      <a href="https://www.instagram.com/baonmyway/p/DeH56KWFJay/" target="_blank" rel="noopener"><img src="/assets/ig/ig6.webp" alt="Weekly bar tour in Buenos Aires, post by @baonmyway" loading="lazy"></a>
+      <a href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" aria-label="@baonmyway on Instagram"><img src="/assets/ig/ig1.webp" alt="BA on my way tour photo" loading="lazy"></a>
+      <a href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" aria-label="@baonmyway on Instagram"><img src="/assets/ig/ig2.webp" alt="BA on my way tour photo" loading="lazy"></a>
+      <a href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" aria-label="@baonmyway on Instagram"><img src="/assets/ig/ig3.webp" alt="BA on my way tour photo" loading="lazy"></a>
+      <a href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" aria-label="@baonmyway on Instagram"><img src="/assets/ig/ig4.webp" alt="BA on my way tour photo" loading="lazy"></a>
+      <a href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" aria-label="@baonmyway on Instagram"><img src="/assets/ig/ig5.webp" alt="BA on my way tour photo" loading="lazy"></a>
+      <a href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" aria-label="@baonmyway on Instagram"><img src="/assets/ig/ig6.webp" alt="BA on my way tour photo" loading="lazy"></a>
     </div>
     <a class="ig-follow" href="https://www.instagram.com/baonmyway/" target="_blank" rel="noopener" data-i18n="ig_follow">Seguí @baonmyway →</a>
   </div>
@@ -683,12 +683,13 @@
 <nav class="mbar" id="mbar" aria-label="Quick booking"><a class="p" href="#book" data-i18n="mbar_check">Consultar disponibilidad</a><a class="w" href="https://wa.me/541168740876?text=%C2%A1Hola%21%20Quiero%20consultar%20disponibilidad%20para%20un%20tour%20de%20BA%20on%20my%20way." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.2 5.2 0 0 0 3.1.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c0-.1-.2-.2-.4-.3z"/></svg></a></nav>
 <script>
 // Photos come from the Drive folder "PARA LA WEB" through /api/photos. On each visit the
-// hero, the photo strip and the gallery each get a random pick from the whole folder.
+// hero, the photo strip, the gallery and the Instagram grid each get a random pick from the whole folder.
 // The local photos in the HTML stay as the fallback. The founder photo is never changed.
 (function () {
   var hero = document.querySelectorAll('.hx-slides img');
   var strip = document.querySelectorAll('.strip-set button img');
   var gallery = document.querySelectorAll('.gallery img');
+  var igPhotos = document.querySelectorAll('.ig-strip img');
   function url(p) { return '/api/photo?id=' + encodeURIComponent(p.id) + '&v=' + encodeURIComponent(p.v); }
   function shuffle(list) {
     var a = list.slice();
@@ -720,6 +721,11 @@
       var g = shuffle(ps);
       gallery.forEach(function (img, i) {
         swap(img, url(g[i % g.length]));
+      });
+      var k = shuffle(ps);
+      igPhotos.forEach(function (img, i) {
+        swap(img, url(k[i % k.length]));
+        img.alt = 'BA on my way tour photo';
       });
     })
     .catch(function () {});
