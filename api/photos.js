@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
     const asked = parseInt(url.searchParams.get('n') || '10', 10);
-    const n = Math.min(Math.max(Number.isFinite(asked) ? asked : 10, 1), 20);
+    const n = Math.min(Math.max(Number.isFinite(asked) ? asked : 10, 1), 50);
     const files = await listFolder();
     const photos = shuffle(files.slice())
       .slice(0, n)
