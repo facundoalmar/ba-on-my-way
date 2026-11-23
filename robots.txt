@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /adminfotos/
 
 Sitemap: https://ba-on-my-way.vercel.app/sitemap.xml
